@@ -9,9 +9,9 @@ app.use(express.json());
 
 function connectWithRetry() {
   const connection = mysql.createConnection({
-    host: 'mysql',
+    host: 'mysql',      //localhost
     user: 'root',
-    password: 'rootpassword',
+    password: 'pass@word1',
     database: 'salesdb'
   });
 
@@ -50,6 +50,11 @@ function setupRoutes(db) {
     const { productId, customerId, quantity } = req.body;
     
     try {
+
+      // const productRes = await axios.get(`http://localhost:3002/products/${productId}`);
+      // const customerRes = await axios.get(`http://localhost:3003/customers/${customerId}`);
+
+      //for docker
       const productRes = await axios.get(`http://productinfo:3002/products/${productId}`);
       const customerRes = await axios.get(`http://customerinfo:3003/customers/${customerId}`);
       

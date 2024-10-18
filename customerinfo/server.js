@@ -9,8 +9,13 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: 'mysql',
   user: 'root',
-  password: 'rootpassword',
+  password: 'pass@word1',
   database: 'customerdb'
+});
+
+db.connect((err) => {
+  if (err) throw err;
+  console.log('Connected to MySQL database');
 });
 
 app.get('/customers', (req, res) => {

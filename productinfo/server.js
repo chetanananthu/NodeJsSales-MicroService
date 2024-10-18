@@ -6,9 +6,12 @@ const PORT = 3002;
 
 app.use(express.json());
 
-mongoose.connect('mongodb://mongodb:27017/productdb', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://mongodb:27017/productdb')
+.then(()=>console.log('MongoDB connected'))
+.catch((err)=>console.log(err));
 
 const Product = mongoose.model('Product', {
+  id:Number,
   name: String,
   price: Number,
   stock: Number
@@ -25,7 +28,7 @@ app.get('/products', async (req, res) => {
 
 app.get('/products/:id', async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findOne({id:req.params.id});
     if (product) {
       res.json(product);
     } else {
